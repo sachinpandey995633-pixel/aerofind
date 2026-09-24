@@ -176,6 +176,37 @@
     .chat-msg { padding: 8px 12px; border-radius: 12px; max-width: 82%; line-height: 1.4; }
     .chat-bot { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); color: #f8fafc; align-self: flex-start; }
     .chat-user { background: #0284c7; color: #fff; align-self: flex-end; }
+
+    /* MOBILE RESPONSIVE FIXES */
+    @media (max-width: 900px) {
+      .hero-layout {
+        grid-template-columns: 1fr !important;
+      }
+      .gradient-title {
+        font-size: 2.2rem !important;
+      }
+      .stats-grid, .steps-grid {
+        grid-template-columns: 1fr 1fr !important;
+      }
+      .nav-links {
+        display: none !important;
+      }
+      .page-container {
+        padding: 0.8rem 1rem !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid, .steps-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .gradient-title {
+        font-size: 1.8rem !important;
+      }
+      .pnr-form-box {
+        padding: 1rem !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -256,7 +287,7 @@
           Enter your flight PNR or upload luggage photos for sub-10ms AI matching.
         </p>
 
-        <div class="glass-panel-glow" style="width: 100%; max-width: 530px; padding: 1.5rem; text-align: left;">
+        <div class="glass-panel-glow pnr-form-box" style="width: 100%; max-width: 530px; padding: 1.5rem; text-align: left;">
           <div style="display: flex; align-items: center; justify-style:space-between; margin-bottom: 1rem;">
             <span style="font-size: 1rem; font-weight: 700; color: #fff; display:flex; align-items:center; gap:8px;">
               <i class="fa-solid fa-suitcase" style="color:#a855f7;"></i> Track Your Lost Item
@@ -665,7 +696,7 @@
 
         resultsSection.innerHTML = `
           <div class="glass-panel" style="padding: 1.8rem; border-color: #10b981;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem;">
+            <div style="display:flex; justify-style:space-between; align-items:center; margin-bottom:1.2rem;">
               <h3 style="color: #34d399; font-size: 1.25rem; display:flex; align-items:center; gap:8px;">
                 <i class="fa-solid fa-circle-check"></i> Baggage Located & PNR Verified: ${pnrKey}
               </h3>
