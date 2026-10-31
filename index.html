@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AeroFind - Zero-Retention AI Airport Baggage Recovery Infrastructure</title>
-  
+  <title>AeroFind | Airport Lost &amp; Found</title>
+
   <!-- Fonts & Icons -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -113,7 +113,7 @@
     /* Center Hero */
     .center-hero { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
     .hero-badge { background: rgba(255, 255, 255, 0.08); color: #f8fafc; border: 1px solid rgba(255, 255, 255, 0.18); padding: 6px 18px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 1rem; }
-    
+
     .gradient-title {
       font-size: 3.2rem; font-weight: 800; line-height: 1.05; margin-bottom: 0.6rem;
       background: linear-gradient(135deg, #38bdf8 0%, #e879f9 50%, #f43f5e 100%);
@@ -154,10 +154,78 @@
     .step-num { width: 32px; height: 32px; background: #0284c7; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 0.8rem auto; font-weight: bold; font-size: 0.9rem; color: #fff; }
 
     /* Modals */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(5, 7, 15, 0.92); backdrop-filter: blur(16px); display: grid; place-items: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .modal-overlay { position: fixed; inset: 0; padding: 1rem; overflow-y: auto; background: rgba(5, 7, 15, 0.92); backdrop-filter: blur(16px); display: grid; place-items: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
     .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-overlay > .glass-panel, .modal-overlay > .glass-panel-glow { max-height: calc(100vh - 2rem); overflow-y: auto; }
 
     .progress-bar-inner { height: 100%; background: linear-gradient(90deg, #38bdf8, #a855f7, #ec4899); width: 0%; transition: width 0.25s ease; }
+
+    @media (max-width: 1180px) {
+      .page-container { padding-right: 1.25rem; padding-left: 1.25rem; }
+      .navbar-header { gap: 1rem; padding-right: 1rem; padding-left: 1rem; }
+      .nav-links { gap: 1.15rem; font-size: 0.78rem; }
+      .hero-layout { grid-template-columns: minmax(220px, 0.85fr) minmax(300px, 1.35fr) minmax(220px, 0.85fr); gap: 1rem; }
+      .gradient-title { font-size: clamp(2.45rem, 4vw, 3.2rem); }
+    }
+
+    @media (max-width: 920px) {
+      .navbar-header { flex-wrap: wrap; }
+      .navbar-header > button { margin-left: auto; }
+      .nav-links { order: 3; width: 100%; justify-content: center; flex-wrap: wrap; gap: 0.8rem 1.4rem; }
+      .hero-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+      .hero-layout > .center-hero { grid-column: 1 / -1; grid-row: 1; padding: 1.2rem 0; }
+      .hero-layout > :first-child { grid-column: 1; grid-row: 2; }
+      .hero-layout > :last-child { grid-column: 2; grid-row: 2; }
+      .stats-grid, .steps-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #pilot-section { grid-template-columns: 1fr !important; }
+    }
+
+    @media (max-width: 600px) {
+      body { background-attachment: scroll; }
+      .page-container { padding: 0.8rem 0.85rem 2rem; }
+      .navbar-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.75rem; padding: 0.75rem; margin-bottom: 1rem; }
+      .logo-box { gap: 0.55rem; }
+      .plane-icon { width: 38px; height: 38px; }
+      .navbar-header > button { max-width: 180px; padding: 8px 10px !important; font-size: 0.72rem !important; }
+      .nav-links { grid-column: 1 / -1; order: initial; justify-content: flex-start; gap: 0.45rem 1rem; overflow-wrap: anywhere; }
+      .nav-links span { font-size: 0.72rem; }
+      .hero-layout { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }
+      .hero-layout > .center-hero { grid-column: 1; grid-row: 1; padding: 0.8rem 0 1rem; }
+      .hero-layout > :first-child { grid-column: 1; grid-row: 2; }
+      .hero-layout > :last-child { grid-column: 1; grid-row: 3; }
+      .gradient-title { font-size: clamp(2.25rem, 11vw, 3rem); }
+      .center-hero > p { max-width: 38ch; }
+      .hero-layout > .center-hero > .glass-panel-glow { padding: 1rem !important; }
+      #pnr-form { flex-direction: column; }
+      #pnr-form .pnr-input, #pnr-form button { width: 100%; min-width: 0; }
+      .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.65rem; }
+      .stat-card { padding: 0.85rem; }
+      .stat-num { font-size: 1.45rem; }
+      #results-section .glass-panel div[style*="min-width:260px"] { flex: 1 1 100% !important; min-width: 0 !important; }
+      #results-section .glass-panel img { width: min(170px, 100%) !important; height: auto !important; aspect-ratio: 1; }
+      .steps-grid { grid-template-columns: minmax(0, 1fr); gap: 0.65rem; }
+      #how-it-works { padding: 1.25rem !important; }
+      #results-section .glass-panel { padding: 1rem !important; }
+      .modal-overlay { padding: 0.55rem; }
+      .modal-overlay > .glass-panel, .modal-overlay > .glass-panel-glow { width: 100% !important; max-width: 520px; max-height: calc(100dvh - 1.1rem); padding: 1.15rem !important; }
+      .modal-overlay form > div[style*="grid-template-columns"] { grid-template-columns: minmax(0, 1fr) !important; }
+      .modal-overlay h3 { padding-right: 1.2rem; font-size: 1.05rem !important; }
+      #ram-keys-list { max-height: 32dvh !important; }
+    }
+
+    @media (max-width: 380px) {
+      .page-container { padding-right: 0.6rem; padding-left: 0.6rem; }
+      .navbar-header > button { max-width: 150px; }
+      .nav-links { gap: 0.4rem 0.7rem; }
+      .nav-links span { font-size: 0.66rem; }
+      .stats-grid { gap: 0.5rem; }
+      .stat-card { padding: 0.7rem 0.45rem; }
+      .stat-num { font-size: 1.25rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
 
     /* Floating AI Chatbot Widget */
     .chatbot-fab {
@@ -177,35 +245,13 @@
     .chat-bot { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); color: #f8fafc; align-self: flex-start; }
     .chat-user { background: #0284c7; color: #fff; align-self: flex-end; }
 
-    /* MOBILE RESPONSIVE FIXES */
-    @media (max-width: 900px) {
-      .hero-layout {
-        grid-template-columns: 1fr !important;
-      }
-      .gradient-title {
-        font-size: 2.2rem !important;
-      }
-      .stats-grid, .steps-grid {
-        grid-template-columns: 1fr 1fr !important;
-      }
-      .nav-links {
-        display: none !important;
-      }
-      .page-container {
-        padding: 0.8rem 1rem !important;
-      }
+    @media (max-width: 920px) {
+      .chatbot-window { right: 16px; width: min(360px, calc(100vw - 32px)); }
     }
 
-    @media (max-width: 480px) {
-      .stats-grid, .steps-grid {
-        grid-template-columns: 1fr !important;
-      }
-      .gradient-title {
-        font-size: 1.8rem !important;
-      }
-      .pnr-form-box {
-        padding: 1rem !important;
-      }
+    @media (max-width: 600px) {
+      .chatbot-fab { right: 14px; bottom: 14px; width: 52px; height: 52px; }
+      .chatbot-window { right: 10px; bottom: 76px; width: calc(100vw - 20px); height: min(460px, calc(100dvh - 94px)); transition: opacity 0.3s ease; }
     }
   </style>
 </head>
@@ -219,15 +265,15 @@
         <div class="plane-icon"><i class="fa-solid fa-plane"></i></div>
         <div>
           <h1 class="font-sora" style="font-size: 1.4rem; font-weight: 800; color: #fff;">AeroFind</h1>
-          <p style="font-size: 0.7rem; color: #38bdf8; font-weight: 600;">🏛 Ministry of Civil Aviation Partner</p>
+          <p style="font-size: 0.7rem; color: #38bdf8; font-weight: 600;">Airport Lost &amp; Found</p>
         </div>
       </div>
 
       <nav class="nav-links">
         <span class="active">Home</span>
-        <span onclick="openAIModal()">Report Lost Item</span>
+        <span onclick="openAIModal()">AeroFind AI</span>
         <span onclick="scrollToSearch()">Track Claim</span>
-        <span onclick="openZDRInspector()" style="color:#10b981; font-weight:bold;"><i class="fa-solid fa-microchip"></i> Live ZDR RAM Inspector</span>
+        <span onclick="openZDRInspector()" style="color:#10b981; font-weight:bold;"><i class="fa-solid fa-microchip"></i> Data &amp; Privacy</span>
         <span onclick="scrollToHowItWorks()">How It Works</span>
       </nav>
 
@@ -239,36 +285,66 @@
     <!-- HERO SECTION -->
     <main class="hero-layout">
 
-      <!-- LEFT COLUMN: LIVE DEPARTURES BOARD -->
+      <!-- LEFT COLUMN: SAMPLE FLIGHT BOARD -->
       <div style="display: flex; flex-direction: column; gap: 1rem;">
         <div class="glass-panel" style="padding: 1.2rem;">
           <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #cbd5e1; font-weight: bold; margin-bottom: 1rem;">
-            <span><i class="fa-solid fa-plane-departure" style="color:#38bdf8; margin-right:4px;"></i> LIVE DEPARTURES</span>
-            <span style="color: #10b981; display: flex; align-items: center; gap: 6px;">
-              <span class="live-dot"></span> LIVE
+            <span><i class="fa-solid fa-plane-departure" style="color:#38bdf8; margin-right:4px;"></i> SAMPLE FLIGHT SIMULATION</span>
+            <span style="color: #facc15; display: flex; align-items: center; gap: 6px;">
+              <span class="live-dot" style="background:#facc15;box-shadow:0 0 8px rgba(250,204,21,.8);">              </span> SIMULATED
             </span>
           </div>
+          <p style="font-size:0.67rem;color:#94a3b8;margin:-0.45rem 0 0.85rem;">Statuses cycle every 6 seconds · Not a live airline feed</p>
 
           <div id="departures-list" style="display: flex; flex-direction: column; gap: 0.65rem;">
-            <!-- Rendered by JS -->
+            <div class="dep-row">
+              <span>
+                <strong style="color:#fff;">6E1234</strong>
+                <small style="display:block;color:#94a3b8;margin-top:3px;">Delhi (DEL) → Mumbai (BOM)</small>
+              </span>
+              <span style="text-align:right;">
+                <strong style="color:#38bdf8;">08:40</strong>
+                <small style="display:block;color:#34d399;margin-top:3px;">On Time</small>
+              </span>
+            </div>
+            <div class="dep-row">
+              <span>
+                <strong style="color:#fff;">AI2456</strong>
+                <small style="display:block;color:#94a3b8;margin-top:3px;">Delhi (DEL) → Bengaluru (BLR)</small>
+              </span>
+              <span style="text-align:right;">
+                <strong style="color:#38bdf8;">09:15</strong>
+                <small style="display:block;color:#facc15;margin-top:3px;">Boarding</small>
+              </span>
+            </div>
+            <div class="dep-row">
+              <span>
+                <strong style="color:#fff;">UK908</strong>
+                <small style="display:block;color:#94a3b8;margin-top:3px;">Delhi (DEL) → Hyderabad (HYD)</small>
+              </span>
+              <span style="text-align:right;">
+                <strong style="color:#38bdf8;">10:05</strong>
+                <small style="display:block;color:#fb923c;margin-top:3px;">Delayed 20 min</small>
+              </span>
+            </div>
           </div>
         </div>
 
         <div class="glass-panel" style="padding: 1rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; text-align: center;">
           <div>
             <div style="font-size: 1.2rem; color:#38bdf8;"><i class="fa-solid fa-suitcase"></i></div>
-            <div style="font-size: 1rem; font-weight: 800; color: #fff;" id="count-lost">12,458</div>
-            <div style="font-size: 0.6rem; color: #94a3b8;">Lost Items</div>
+            <div style="font-size: 1rem; font-weight: 800; color: #fff;" id="count-lost">—</div>
+            <div style="font-size: 0.6rem; color: #94a3b8;">Open sample reports</div>
           </div>
           <div>
             <div style="font-size: 1.2rem; color:#a855f7;"><i class="fa-solid fa-magnifying-glass"></i></div>
-            <div style="font-size: 1rem; font-weight: 800; color: #fff;" id="count-found">8,934</div>
-            <div style="font-size: 0.6rem; color: #94a3b8;">Found Items</div>
+            <div style="font-size: 1rem; font-weight: 800; color: #fff;" id="count-found">0</div>
+            <div style="font-size: 0.6rem; color: #94a3b8;">PNR lookups</div>
           </div>
           <div>
             <div style="font-size: 1.2rem; color:#10b981;"><i class="fa-solid fa-circle-check"></i></div>
-            <div style="font-size: 1rem; font-weight: 800; color: #10b981;" id="count-reunited">7,245</div>
-            <div style="font-size: 0.6rem; color: #94a3b8;">Reunited</div>
+            <div style="font-size: 1rem; font-weight: 800; color: #10b981;" id="count-reunited">—</div>
+            <div style="font-size: 0.6rem; color: #94a3b8;">Staff removals</div>
           </div>
         </div>
       </div>
@@ -276,7 +352,7 @@
       <!-- CENTER COLUMN: PNR SEARCH BOX -->
       <div class="center-hero">
         <span class="hero-badge">
-          <i class="fa-solid fa-star" style="color:#facc15;"></i> India's Most Trusted Airport Lost & Found Platform
+          <i class="fa-solid fa-star" style="color:#facc15;"></i> Staff-Assisted Lost-Baggage Recovery
         </span>
 
         <h2 class="font-sora gradient-title">
@@ -284,24 +360,24 @@
         </h2>
 
         <p style="color: #cbd5e1; font-size: 0.9rem; margin-bottom: 1.5rem;">
-          Enter your flight PNR or upload luggage photos for sub-10ms AI matching.
+          A simple recovery layer for airports and passengers—connecting staff-reported bags to the people looking for them, with faster updates and clearer next steps.
         </p>
 
-        <div class="glass-panel-glow pnr-form-box" style="width: 100%; max-width: 530px; padding: 1.5rem; text-align: left;">
+        <div class="glass-panel-glow" style="width: 100%; max-width: 530px; padding: 1.5rem; text-align: left;">
           <div style="display: flex; align-items: center; justify-style:space-between; margin-bottom: 1rem;">
             <span style="font-size: 1rem; font-weight: 700; color: #fff; display:flex; align-items:center; gap:8px;">
               <i class="fa-solid fa-suitcase" style="color:#a855f7;"></i> Track Your Lost Item
             </span>
             <span style="font-size:0.7rem; background:rgba(16,185,129,0.15); color:#34d399; padding:3px 8px; border-radius:6px; font-weight:bold;">
-              <i class="fa-solid fa-bolt"></i> In-Memory Speed
+              <i class="fa-solid fa-database"></i> Synthetic demo
             </span>
           </div>
 
-          <form id="pnr-form" style="display: flex; gap: 0.5rem;" onsubmit="handlePNRSearch(event)">
-            <input 
-              type="text" 
+          <form id="pnr-form" style="display: flex; gap: 0.5rem;">
+            <input
+              type="text"
               id="pnr-input"
-              placeholder="Enter PNR Number (e.g. 6E1234)"
+              placeholder="Enter sample reference (e.g. 6E1234)"
               class="pnr-input"
               required
             />
@@ -310,8 +386,12 @@
             </button>
           </form>
 
+          <button type="button" onclick="runSampleSearch()" style="display:block;margin:0.8rem auto 0;padding:6px 10px;color:#bae6fd;background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.25);border-radius:8px;font-size:0.72rem;cursor:pointer;">
+            Try the synthetic sample lookup · 6E1234
+          </button>
+
           <p style="font-size: 0.75rem; color: #10b981; margin-top: 0.9rem; text-align: center; display:flex; align-items:center; justify-content:center; gap:6px;">
-            <i class="fa-solid fa-shield-check"></i> Your search is <b>100% secure</b> & private (Zero Data Retention)
+            <i class="fa-solid fa-shield-check"></i> Sample 6E1234 works offline; staff reports need the AeroFind server.
           </p>
         </div>
       </div>
@@ -320,9 +400,9 @@
       <div style="display: flex; flex-direction: column; gap: 1rem; justify-content: center;">
         <div class="glass-panel" style="padding: 1.2rem; text-align: center; position:relative; display:flex; flex-direction:column; align-items:center;">
           <div style="position:absolute; top:12px; left:12px; background:rgba(2,132,199,0.8); color:#fff; font-size:0.65rem; padding:3px 8px; border-radius:6px; font-weight:bold;">
-            AI Vision Index
+            Bag Photo Preview
           </div>
-          
+
           <!-- Guaranteed Inline SVG Bag Image -->
           <div id="featured-bag-box" style="width: 100%; height: 150px; margin-top: 15px; display: grid; place-items: center; background: rgba(30,58,138,0.2); border-radius: 12px; border: 1px solid rgba(56,189,248,0.3);">
             <svg width="110" height="110" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -336,81 +416,113 @@
             </svg>
           </div>
 
-          <div style="font-size:0.75rem; color:#cbd5e1; margin-top:8px; font-weight:bold;" id="featured-bag-label">Navy Hard-Shell Trolley</div>
+          <div style="font-size:0.75rem; color:#cbd5e1; margin-top:8px; font-weight:bold;" id="featured-bag-label">Bag photo search preview</div>
         </div>
 
         <button class="glass-panel" onclick="openAIModal()" style="padding: 12px 16px; text-align: left; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #fff; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15);">
           <i class="fa-solid fa-camera" style="font-size: 1.4rem; color: #38bdf8;"></i>
           <div>
-            <div style="font-size: 0.8rem; font-weight: bold;">SEARCH BY AI IMAGE</div>
-            <div style="font-size: 0.65rem; color: #94a3b8;">(Upload Bag Photo)</div>
+            <div style="font-size: 0.8rem; font-weight: bold;">AEROFIND AI BAG MATCH</div>
+            <div style="font-size: 0.65rem; color: #94a3b8;">(Simulated MVP · photo + PNR or tag)</div>
           </div>
         </button>
 
         <button class="glass-panel" onclick="openZDRInspector()" style="padding: 12px 16px; text-align: left; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #fff; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3);">
           <i class="fa-solid fa-database" style="font-size: 1.4rem; color: #10b981;"></i>
           <div>
-            <div style="font-size: 0.8rem; font-weight: bold; color:#34d399;">DEMO REDIS RAM PURGE</div>
-            <div style="font-size: 0.65rem; color: #94a3b8;">(Show Zero Data to Judges)</div>
+            <div style="font-size: 0.8rem; font-weight: bold; color:#34d399;">DATA &amp; PRIVACY</div>
+            <div style="font-size: 0.65rem; color: #94a3b8;">(View retention limits)</div>
           </div>
         </button>
       </div>
     </main>
 
     <!-- RESULTS DISPLAY REGION -->
-    <section id="results-section" style="display: none; margin-bottom: 2.5rem;">
-      <!-- Dynamic Result Container -->
+    <section id="results-section" style="display: none; margin-bottom: 2.5rem;" aria-live="polite">
+    </section>
+
+    <section style="display:flex;justify-content:center;margin:-0.9rem 0 2rem;">
+      <button type="button" class="glass-panel" onclick="openFeedbackForm()" style="padding:10px 16px;color:#e2e8f0;cursor:pointer;border:1px solid rgba(56,189,248,.3);">
+        <i class="fa-solid fa-comment-dots" style="color:#38bdf8;margin-right:6px;"></i> Share Feedback
+      </button>
     </section>
 
     <!-- STATS ROW -->
     <section class="stats-grid">
       <div class="glass-panel stat-card">
-        <div class="font-sora stat-num" style="color: #c084fc;">12,458+</div>
-        <div style="font-size: 0.85rem; font-weight: 700;">Lost Items Reported</div>
-        <div style="font-size: 0.7rem; color: #94a3b8;">Across 32 Indian Airports</div>
+        <div class="font-sora stat-num" id="stat-active-reports" style="color: #c084fc;">—</div>
+        <div style="font-size: 0.85rem; font-weight: 700;">Active Bag Reports</div>
+        <div style="font-size: 0.7rem; color: #94a3b8;">Current in-memory records</div>
       </div>
       <div class="glass-panel stat-card">
-        <div class="font-sora stat-num" style="color: #f472b6;">8,934+</div>
-        <div style="font-size: 0.85rem; font-weight: 700;">Items Found</div>
-        <div style="font-size: 0.7rem; color: #94a3b8;">AI Feature Tagged</div>
+        <div class="font-sora stat-num" id="stat-pnr-searches" style="color: #f472b6;">—</div>
+        <div style="font-size: 0.85rem; font-weight: 700;">PNR Status Checks</div>
+        <div style="font-size: 0.7rem; color: #94a3b8;">Since this server started</div>
       </div>
       <div class="glass-panel stat-card">
-        <div class="font-sora stat-num" style="color: #fb923c;">7,245+</div>
-        <div style="font-size: 0.85rem; font-weight: 700;">Items Reunited</div>
-        <div style="font-size: 0.7rem; color: #94a3b8;">With Zero Data Retained</div>
+        <div class="font-sora stat-num" id="stat-photo-searches" style="color: #fb923c;">—</div>
+        <div style="font-size: 0.85rem; font-weight: 700;">Photo Comparisons</div>
+        <div style="font-size: 0.7rem; color: #94a3b8;">Coarse color matching</div>
       </div>
       <div class="glass-panel stat-card">
-        <div class="font-sora stat-num" style="color: #facc15;">98.6%</div>
-        <div style="font-size: 0.85rem; font-weight: 700;">Reunion Success Rate</div>
-        <div style="font-size: 0.7rem; color: #38bdf8;">We Care, We Reunite</div>
+        <div class="font-sora stat-num" id="stat-reports-removed" style="color: #facc15;">—</div>
+        <div style="font-size: 0.85rem; font-weight: 700;">Reports Removed</div>
+        <div style="font-size: 0.7rem; color: #38bdf8;">Staff action · not reunion count</div>
+      </div>
+    </section>
+
+    <section id="pilot-section" class="glass-panel" style="padding:2rem;margin-bottom:2rem;display:grid;grid-template-columns:1.15fr 1fr;gap:2rem;align-items:center;">
+      <div>
+        <div style="color:#38bdf8;font-size:.7rem;font-weight:800;letter-spacing:.1em;margin-bottom:.65rem;">BUILT FOR A FOCUSED PILOT</div>
+        <h3 class="font-sora" style="font-size:1.55rem;line-height:1.2;color:#fff;margin-bottom:.7rem;">Turn a lost-bag report into a shared recovery timeline.</h3>
+        <p style="color:#cbd5e1;font-size:.82rem;line-height:1.6;max-width:620px;">AeroFind gives ground teams one lightweight workflow for reporting, matching, verification, and pickup readiness—while giving passengers a clear status instead of another silent wait.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1rem;">
+          <span style="padding:6px 10px;border-radius:999px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.25);color:#bae6fd;font-size:.7rem;">Staff-first workflow</span>
+          <span style="padding:6px 10px;border-radius:999px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#6ee7b7;font-size:.7rem;">Privacy-aware by design</span>
+          <span style="padding:6px 10px;border-radius:999px;background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.25);color:#d8b4fe;font-size:.7rem;">Integration-ready</span>
+        </div>
+      </div>
+      <div style="display:grid;gap:.7rem;">
+        <div style="padding:1rem;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);">
+          <div style="color:#fff;font-size:.82rem;font-weight:800;margin-bottom:.25rem;"><i class="fa-solid fa-stopwatch" style="color:#38bdf8;margin-right:6px;"></i>Measure the handoff</div>
+          <div style="color:#94a3b8;font-size:.72rem;">Time from staff entry to passenger visibility.</div>
+        </div>
+        <div style="padding:1rem;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);">
+          <div style="color:#fff;font-size:.82rem;font-weight:800;margin-bottom:.25rem;"><i class="fa-solid fa-route" style="color:#a855f7;margin-right:6px;"></i>Reduce uncertainty</div>
+          <div style="color:#94a3b8;font-size:.72rem;">Clear checkpoints for staff, passengers, and the desk.</div>
+        </div>
+        <div style="padding:1rem;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);">
+          <div style="color:#fff;font-size:.82rem;font-weight:800;margin-bottom:.25rem;"><i class="fa-solid fa-chart-line" style="color:#34d399;margin-right:6px;"></i>Prove before scaling</div>
+          <div style="color:#94a3b8;font-size:.72rem;">Pilot with one team, learn from real cases, then integrate.</div>
+        </div>
       </div>
     </section>
 
     <!-- HOW IT WORKS SECTION -->
     <section id="how-it-works" class="glass-panel" style="padding: 2.2rem; text-align: center;">
       <h3 class="font-sora" style="font-size: 1.5rem; font-weight: 800; color: #fff;">
-        How <span style="color: #38bdf8;">AeroFind</span> Zero-Retention System Works
+        How <span style="color: #38bdf8;">AeroFind</span> Works
       </h3>
       <div class="steps-grid">
         <div class="step-card">
           <div class="step-num">1</div>
           <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.3rem;">Staff Photo Upload</div>
-          <div style="font-size: 0.75rem; color: #94a3b8;">Ground staff scans unclaimed luggage; AI extracts bag features into Redis RAM.</div>
+          <div style="font-size: 0.75rem; color: #94a3b8;">Authorized staff sign in and add a bag description, location, and optional photo.</div>
         </div>
         <div class="step-card">
           <div class="step-num">2</div>
           <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.3rem;">Passenger PNR Query</div>
-          <div style="font-size: 0.75rem; color: #94a3b8;">Passenger inputs PNR; system queries RAM buffer with sub-10ms match resolution.</div>
+          <div style="font-size: 0.75rem; color: #94a3b8;">Passenger enters the booking reference linked to the staff report.</div>
         </div>
         <div class="step-card">
           <div class="step-num">3</div>
-          <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.3rem;">Digital Claim Verification</div>
-          <div style="font-size: 0.75rem; color: #94a3b8;">Passenger confirms bag images and gets instant digital airport pickup pass.</div>
+          <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.3rem;">Airport Pickup Confirmation</div>
+          <div style="font-size: 0.75rem; color: #94a3b8;">Passenger confirms the report with the airport lost-and-found desk.</div>
         </div>
         <div class="step-card">
           <div class="step-num">4</div>
-          <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.3rem;">RAM Memory Wipe</div>
-          <div style="font-size: 0.75rem; color: #94a3b8;">Post-verification, passenger travel details & vectors are wiped from RAM (0 Bytes).</div>
+          <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 0.3rem;">Memory Retention</div>
+          <div style="font-size: 0.75rem; color: #94a3b8;">Reports expire after 30 days, staff removal, or server restart; no six-second wipe is claimed.</div>
         </div>
       </div>
     </section>
@@ -424,13 +536,14 @@
 
   <div id="chatbot-window" class="chatbot-window">
     <div style="background:#0284c7; padding:12px 16px; color:#fff; font-weight:bold; font-size:0.9rem; display:flex; justify-style:space-between; align-items:center;">
-      <span><i class="fa-solid fa-robot" style="margin-right:6px;"></i> AeroBot • AI Lost & Found Assistant</span>
+      <span><i class="fa-solid fa-robot" style="margin-right:6px;"></i> AeroBot • Lost & Found Help</span>
       <span onclick="toggleChatbot()" style="cursor:pointer;">✕</span>
     </div>
+    <p id="chat-ai-status" style="padding:5px 12px;margin:0;color:#94a3b8;font-size:0.68rem;background:rgba(0,0,0,0.25);">Checking assistant mode…</p>
 
     <div id="chat-body" class="chat-body">
       <div class="chat-msg chat-bot">
-        Namaste! I am AeroBot. How can I assist you with your airport luggage today?
+        Namaste! Ask me about checking a bag report or using AeroFind.
       </div>
     </div>
 
@@ -446,8 +559,8 @@
       <h3 style="font-size: 1.3rem; color: #38bdf8; margin-bottom: 0.2rem; display:flex; align-items:center; justify-content:center; gap:8px;">
         <i class="fa-solid fa-conveyor-belt"></i> Laser Scanning Baggage Belts
       </h3>
-      <p style="color: #cbd5e1; font-size: 0.8rem; margin-bottom: 1rem;">Querying in-memory Redis buffer across Delhi & Mumbai Airport Terminals...</p>
-      
+      <p style="color: #cbd5e1; font-size: 0.8rem; margin-bottom: 1rem;">Checking temporary AeroFind bag reports. This is not connected to airport systems.</p>
+
       <!-- AIRPORT CONVEYOR BELT ANIMATION -->
       <div class="belt-container">
         <div class="belt-laser"></div>
@@ -469,23 +582,40 @@
         <div id="progress-bar" class="progress-bar-inner"></div>
       </div>
 
-      <p style="font-size:0.7rem; color:#10b981;"><i class="fa-solid fa-lock"></i> Zero-Data Retention: Temporary RAM Vector Evaluation</p>
+      <p style="font-size:0.7rem; color:#10b981;"><i class="fa-solid fa-lock"></i> Raw booking reference is not stored by AeroFind.</p>
     </div>
   </div>
 
-  <!-- AI IMAGE SEARCH MODAL -->
+  <!-- Simulated AeroFind AI baggage matching demo -->
   <div id="ai-modal" class="modal-overlay">
-    <div class="glass-panel" style="padding: 2rem; width: 90%; max-width: 480px; text-align: center; position: relative;">
-      <button onclick="closeAIModal()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: #94a3b8; font-size: 1.2rem; cursor: pointer;">✕</button>
-      <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.5rem; color: #a855f7; margin-bottom: 1rem;"></i>
-      <h3 style="font-size: 1.3rem; color: #fff; margin-bottom: 0.5rem;">Upload Bag Image for AI Match</h3>
-      <p style="color: #cbd5e1; font-size: 0.8rem; margin-bottom: 1.5rem;">Azure Vision API extracts color, brand, and bag geometry to match RAM records.</p>
-
-      <input type="file" id="ai-file-input" accept="image/*" capture="environment" style="display: none;" onchange="handleAIImageUpload()">
-      <button class="btn-gradient" onclick="document.getElementById('ai-file-input').click()" style="width: 100%; margin-bottom: 1rem;">
-        <i class="fa-solid fa-camera"></i> Open Camera / Snap Live Photo
-      </button>
-      <p style="font-size: 0.7rem; color: #10b981;">🔒 Image vectors vanish post-matching (Zero Disk Storage).</p>
+    <div class="glass-panel" style="padding: 1.5rem; width: 94%; max-width: 620px; max-height: 90vh; overflow-y: auto; text-align: left; position: relative;">
+      <button onclick="closeAIModal()" aria-label="Close AeroFind AI" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: #94a3b8; font-size: 1.2rem; cursor: pointer;">✕</button>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:0.5rem;">
+        <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 2rem; color: #a855f7;"></i>
+        <div>
+          <h3 style="font-size: 1.3rem; color: #fff; margin:0;">AeroFind AI</h3>
+          <span style="font-size:0.68rem;color:#facc15;font-weight:800;letter-spacing:.08em;">SIMULATED MVP DEMO</span>
+        </div>
+      </div>
+      <p style="color: #cbd5e1; font-size: 0.8rem; margin: 0 0 1rem;">
+        Add a bag photo and enter a PNR or bag-tag number to preview possible matches.
+      </p>
+      <div style="padding:10px 12px;margin-bottom:1rem;border:1px solid rgba(250,204,21,.35);border-radius:10px;background:rgba(250,204,21,.07);color:#fde68a;font-size:.72rem;line-height:1.5;">
+        Matching and confidence scores are simulated examples—not AI image analysis. No airline data is checked, and your photo and reference stay in this browser demo.
+      </div>
+      <form id="ai-match-form" style="display:flex;flex-direction:column;gap:.8rem;">
+        <label for="ai-file-input" style="font-size:.75rem;color:#e2e8f0;font-weight:700;">Bag photo</label>
+        <input type="file" id="ai-file-input" accept="image/jpeg,image/png,image/webp" capture="environment" required class="pnr-input" style="width:100%;font-size:.75rem;padding:10px;" aria-describedby="ai-photo-help">
+        <span id="ai-photo-help" style="margin-top:-.6rem;color:#94a3b8;font-size:.68rem;">JPEG, PNG, or WebP · maximum 4 MB · preview stays on this device</span>
+        <img id="ai-photo-preview" alt="Local bag photo preview" style="display:none;width:100%;max-height:190px;object-fit:contain;border-radius:10px;background:rgba(0,0,0,.25);">
+        <label for="ai-reference-input" style="font-size:.75rem;color:#e2e8f0;font-weight:700;">PNR or bag-tag number</label>
+        <input type="text" id="ai-reference-input" class="pnr-input" style="width:100%;" placeholder="Enter a demo reference or tag" minlength="5" maxlength="20" pattern="[-A-Za-z0-9]{5,20}" autocomplete="off" required>
+        <span style="margin-top:-.6rem;color:#94a3b8;font-size:.68rem;">Demo only. This value is not sent to an airline or used to retrieve a real record.</span>
+        <button id="ai-match-submit" type="submit" class="btn-gradient" style="width:100%;padding:12px;">
+          <i class="fa-solid fa-magnifying-glass"></i> Show simulated matches
+        </button>
+      </form>
+      <div id="ai-match-results" role="status" aria-live="polite" style="margin-top:1rem;"></div>
     </div>
   </div>
 
@@ -494,22 +624,50 @@
     <div class="glass-panel-glow" style="padding: 2rem; width: 90%; max-width: 520px; text-align: left; position: relative;">
       <button onclick="closeStaffModal()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: #94a3b8; font-size: 1.2rem; cursor: pointer;">✕</button>
       <h3 style="font-size: 1.25rem; color: #38bdf8; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 8px;">
-        <i class="fa-solid fa-user-shield"></i> Airport Ground Staff Unclaimed Luggage Entry
+        <i class="fa-solid fa-user-shield"></i> Staff Recovery Portal
       </h3>
       <p style="font-size:0.75rem; color:#94a3b8; margin-bottom:1.2rem;">
-        Staff photographs bag & logs location. PNR & Passenger matching happens automatically via AI.
+        <span style="display:inline-block;padding:3px 8px;border-radius:6px;background:rgba(250,204,21,.12);border:1px solid rgba(250,204,21,.35);color:#facc15;font-weight:800;letter-spacing:.06em;">DEMO MODE</span>
+        Staff reports are stored in server memory. Sign in with credentials configured by the operator.
+        IATA Resolution 753 checkpoint labels are reference categories only; updates are manual demo entries, not live scans or proof of compliance.
       </p>
 
+      <form id="staff-login-form" onsubmit="staffLogin(event)" style="display: flex; flex-direction: column; gap: 0.9rem;">
+        <div>
+          <label style="font-size: 0.72rem; color: #cbd5e1; display: block; margin-bottom: 4px;">Staff Username</label>
+          <input type="text" id="staff-username" class="pnr-input" style="width: 100%;" autocomplete="username" required>
+        </div>
+        <div>
+          <label style="font-size: 0.72rem; color: #cbd5e1; display: block; margin-bottom: 4px;">Password</label>
+          <input type="password" id="staff-password" class="pnr-input" style="width: 100%;" autocomplete="current-password" required>
+        </div>
+        <p id="staff-login-status" style="display:none; color:#fca5a5; font-size:0.75rem;"></p>
+        <button type="submit" class="btn-gradient"><i class="fa-solid fa-right-to-bracket"></i> Staff Sign In</button>
+      </form>
+
+      <div id="staff-upload-panel" style="display:none;">
+      <button type="button" onclick="staffLogout()" style="margin: 0 0 0.8rem; padding:6px 12px; color:#fff; border:1px solid rgba(255,255,255,0.18); border-radius:8px; background:transparent; cursor:pointer;">Sign Out</button>
+      <p id="staff-upload-status" style="display:none; color:#34d399; font-size:0.75rem; margin-bottom:0.8rem;"></p>
+      <form id="staff-recovery-search" style="display:flex;gap:8px;margin:0 0 1rem;">
+        <input type="search" id="staff-search-reference" placeholder="Search all reports by PNR or bag tag" class="pnr-input" style="min-width:0;width:100%;" autocomplete="off">
+        <button type="submit" class="btn-gradient" style="padding:8px 12px;">Search</button>
+      </form>
+      <p style="font-size:.68rem;color:#94a3b8;margin:-.6rem 0 1rem;">Search works with a PNR or a bag tag. Demo records only.</p>
+      <h4 style="color:#e2e8f0;font-size:.9rem;margin:0 0 .7rem;">Add a lost-bag case</h4>
       <form onsubmit="handleStaffUpload(event)" style="display: flex; flex-direction: column; gap: 0.9rem;">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
           <div>
-            <label style="font-size: 0.72rem; color: #cbd5e1; display: block; margin-bottom: 4px;">Staff ID / Badge</label>
-            <input type="text" placeholder="DEL-STAFF-902" class="pnr-input" style="width: 100%;" required>
+            <label style="font-size: 0.72rem; color: #cbd5e1; display: block; margin-bottom: 4px;">Airport / Code</label>
+            <input type="text" id="staff-airport" placeholder="Delhi (DEL)" class="pnr-input" style="width: 100%;" required>
           </div>
           <div>
-            <label style="font-size: 0.72rem; color: #cbd5e1; display: block; margin-bottom: 4px;">Bag Tag ID / Barcode (Or PNR)</label>
-            <input type="text" id="staff-pnr" placeholder="e.g. 6E1234 or DEL-459823" class="pnr-input" style="width: 100%;" required>
+              <label style="font-size: 0.72rem; color: #cbd5e1; display: block; margin-bottom: 4px;">Booking Reference / PNR</label>
+              <input type="text" id="staff-pnr" placeholder="e.g. 6E1234" minlength="5" maxlength="10" pattern="[A-Za-z0-9]{5,10}" class="pnr-input" style="width: 100%;" required>
           </div>
+        </div>
+        <div>
+          <label style="font-size: 0.72rem; color: #cbd5e1; display: block; margin-bottom: 4px;">Bag Tag Number (optional)</label>
+          <input type="text" id="staff-bag-tag" placeholder="e.g. DEMO-BAG-123" minlength="5" maxlength="20" pattern="[-A-Za-z0-9]{5,20}" class="pnr-input" style="width: 100%;" autocomplete="off">
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
@@ -525,7 +683,7 @@
 
         <div>
           <label style="font-size: 0.72rem; color: #cbd5e1; display: block; margin-bottom: 4px;">Snap Live Bag Photo (Camera Access)</label>
-          <input type="file" id="staff-photo-input" accept="image/*" capture="environment" class="pnr-input" style="width: 100%; font-size:0.75rem;" onchange="previewStaffPhoto(this)">
+          <input type="file" id="staff-photo-input" accept="image/jpeg,image/png,image/webp" capture="environment" class="pnr-input" style="width: 100%; font-size:0.75rem;" onchange="previewStaffPhoto(this)">
         </div>
 
         <div id="staff-photo-preview-box" style="display:none; text-align:center; background:rgba(0,0,0,0.4); padding:8px; border-radius:10px;">
@@ -533,9 +691,16 @@
         </div>
 
         <button type="submit" class="btn-gradient" style="margin-top: 0.4rem;">
-          <i class="fa-solid fa-upload"></i> Index Bag Features into Redis RAM
+          <i class="fa-solid fa-upload"></i> Save Bag Report in Memory
         </button>
       </form>
+      <div id="staff-bags-list" style="margin-top:1rem;"></div>
+      <section style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.12);">
+        <h4 style="color:#e2e8f0;font-size:.9rem;margin:0 0 .35rem;">Privacy wipe approvals &amp; audit log</h4>
+        <p style="font-size:.68rem;color:#facc15;margin:0 0 .6rem;">DEMO DATA · Requests stay pending until staff approves or rejects them. Only approval removes the active bag report and photo.</p>
+        <div id="staff-privacy-requests-list" aria-live="polite"></div>
+      </section>
+      </div>
     </div>
   </div>
 
@@ -543,10 +708,10 @@
   <div id="zdr-modal" class="modal-overlay">
     <div class="glass-panel" style="padding: 2rem; width: 90%; max-width: 580px; text-align: left; position: relative; border-color:#10b981;">
       <button onclick="closeZDRInspector()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: #94a3b8; font-size: 1.2rem; cursor: pointer;">✕</button>
-      
+
       <div style="display:flex; align-items:center; justify-style:space-between; margin-bottom:1rem;">
         <h3 style="font-size: 1.2rem; color: #34d399; display: flex; align-items: center; gap: 8px;">
-          <i class="fa-solid fa-server"></i> Live Upstash Redis In-Memory RAM Inspector
+          <i class="fa-solid fa-server"></i> Data Retention &amp; Privacy
         </h3>
         <span style="font-size:0.65rem; background:#022c22; color:#10b981; border:1px solid #10b981; padding:3px 8px; border-radius:6px; font-weight:bold;">
           RAM Buffer Active
@@ -554,15 +719,26 @@
       </div>
 
       <p style="font-size:0.78rem; color:#cbd5e1; margin-bottom:1.2rem;">
-        This inspector proves to judges that passenger travel queries and visual vectors stay strictly inside RAM buffers and dissolve immediately post-verification.
+        AeroFind keeps bag reports in server memory. It is not a Redis service and does not guarantee immediate or six-second memory erasure.
       </p>
+
+      <section style="padding:1rem;margin-bottom:1rem;border:1px solid rgba(56,189,248,.25);border-radius:12px;background:rgba(56,189,248,.05);">
+        <h4 style="margin:0 0 .4rem;color:#bae6fd;font-size:.9rem;">Request a passenger data wipe</h4>
+        <p style="font-size:.72rem;color:#cbd5e1;margin:0 0 .8rem;">DEMO ONLY · Enter a PNR or bag tag to send a request to staff. Nothing is wiped unless staff approves it. The reference is used to find matching demo records and is not retained in the request log. This does not verify your identity.</p>
+        <form id="privacy-wipe-request-form" style="display:flex;gap:8px;flex-wrap:wrap;">
+          <label for="privacy-wipe-reference" style="position:absolute;left:-10000px;">PNR or bag tag</label>
+          <input type="text" id="privacy-wipe-reference" class="pnr-input" placeholder="PNR or bag tag" minlength="5" maxlength="20" pattern="[-A-Za-z0-9]{5,20}" autocomplete="off" required style="flex:1;min-width:180px;">
+          <button type="submit" id="privacy-wipe-submit" class="btn-gradient" style="padding:8px 12px;">Request wipe</button>
+        </form>
+        <p id="privacy-wipe-status" role="status" aria-live="polite" style="display:none;font-size:.72rem;margin:.65rem 0 0;"></p>
+      </section>
 
       <div style="background:#030712; border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:1rem; margin-bottom:1.2rem; max-height:220px; overflow-y:auto;" id="ram-keys-list">
         <!-- Rendered dynamically -->
       </div>
 
       <div style="display:flex; justify-style:space-between; align-items:center; background:rgba(16,185,129,0.08); border:1px dashed #10b981; border-radius:10px; padding:10px 14px;">
-        <div style="font-size:0.75rem; color:#34d399;"><b>Zero-Data Guarantee Status:</b> 0 Disk Writes • Auto TTL 60s</div>
+        <div style="font-size:0.75rem; color:#34d399;"><b>Retention:</b> Up to 30 days • Staff removal • Server restart</div>
         <button onclick="manualPurgeRAM()" style="background:#059669; color:#fff; border:none; padding:6px 14px; border-radius:8px; font-size:0.75rem; font-weight:bold; cursor:pointer;">
           <i class="fa-solid fa-trash-can"></i> Purge RAM Now
         </button>
@@ -570,335 +746,126 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC & BACKEND CONNECTOR -->
+  <div id="feedback-modal" class="modal-overlay">
+    <div class="glass-panel" style="padding:1.6rem;width:90%;max-width:520px;text-align:left;position:relative;">
+      <button type="button" onclick="closeFeedbackForm()" aria-label="Close feedback form" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#94a3b8;font-size:1.2rem;cursor:pointer;">✕</button>
+      <h3 style="font-size:1.2rem;color:#38bdf8;margin:0 1.5rem 0.5rem 0;">Anonymous Product Feedback</h3>
+      <p style="font-size:0.76rem;color:#cbd5e1;margin-bottom:1rem;">Optional · no name, email, booking reference, or written comments are collected. Only combined counts stay in memory until the server restarts. Please answer from your own experience; this is not an endorsement request.</p>
+      <form id="feedback-form" style="display:flex;flex-direction:column;gap:0.9rem;">
+        <label style="font-size:0.8rem;color:#f8fafc;">Have you experienced delayed or missing checked luggage?
+          <select id="feedback-luggage-issue" class="pnr-input" required style="width:100%;margin-top:5px;">
+            <option value="" disabled selected>Select one</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+            <option value="unsure">Not sure / prefer not to say</option>
+          </select>
+        </label>
+        <label style="font-size:0.8rem;color:#f8fafc;">After trying AeroFind, how clear are the next steps? (1 = unclear, 5 = very clear)
+          <select id="feedback-clarity" class="pnr-input" required style="width:100%;margin-top:5px;">
+            <option value="" disabled selected>Select a rating</option>
+            <option value="1">1 · Unclear</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5 · Very clear</option>
+          </select>
+        </label>
+        <label style="font-size:0.8rem;color:#f8fafc;">Would you try this kind of staff-assisted tool if your airline/airport offered it?
+          <select id="feedback-would-try" class="pnr-input" required style="width:100%;margin-top:5px;">
+            <option value="" disabled selected>Select one</option>
+            <option value="yes">Yes</option>
+            <option value="maybe">Maybe / depends</option>
+            <option value="no">No</option>
+          </select>
+        </label>
+        <button type="submit" class="btn-gradient">Submit Anonymous Feedback</button>
+      </form>
+      <p id="feedback-status" role="status" style="display:none;font-size:0.78rem;margin:0.8rem 0 0;"></p>
+      <p id="feedback-count" style="font-size:0.68rem;color:#94a3b8;margin:0.7rem 0 0;"></p>
+    </div>
+  </div>
+
+  <script src="aerofind -app/assets/app.js" defer></script>
   <script>
-    // OPTIONAL NODE.JS BACKEND CONNECTOR (Render/Vercel URL)
-    const BACKEND_URL = "https://aerofind-backend.onrender.com";
+    (function () {
+      function renderRecoveryResult(reference) {
+        const results = document.getElementById('results-section');
+        if (!results) return;
 
-    // Mock Baggage Database in RAM with Real Passenger Match
-    let mockBaggageDB = {
-      "6E1234": {
-        passengerName: "Nehal Sharma",
-        pnrStatus: "VERIFIED PASSENGER MATCH",
-        route: "Delhi (DEL) ✈ Gorakhpur (GOP)",
-        flight: "6E 5423 • IndiGo Airlines",
-        tag: "DEL-459823",
-        item: "Navy Hard-Shell Trolley Bag",
-        status: "BAG UNCLAIMED IN RAM BUFFER",
-        location: "Delhi T2 • Lost & Found Counter 4",
-        isCustomImage: false,
-        uploadedAt: "Just now"
-      }
-    };
-
-    let customUploadedPhoto = null;
-
-    // Live Departures Array
-    let departures = [
-      { time: "10:20", from: "DELHI (DEL)", flight: "AI 102", status: "ON TIME", alert: false },
-      { time: "11:15", from: "MUMBAI (BOM)", flight: "SG 256", status: "ON TIME", alert: false },
-      { time: "12:30", from: "BENGALURU (BLR)", flight: "6E 412", status: "DELAYED", alert: true },
-      { time: "13:45", from: "HYDERABAD (HYD)", flight: "AI 404", status: "ON TIME", alert: false },
-      { time: "14:10", from: "CHENNAI (MAA)", flight: "IX 681", status: "ON TIME", alert: false }
-    ];
-
-    function renderDepartures() {
-      const container = document.getElementById('departures-list');
-      container.innerHTML = '';
-      departures.forEach(dep => {
-        const row = document.createElement('div');
-        row.className = 'dep-row';
-        row.innerHTML = `
-          <span style="color: #94a3b8;">${dep.time}</span>
-          <span style="font-weight: 600; color: #f8fafc;">${dep.from}</span>
-          <span style="color: ${dep.alert ? '#f43f5e' : '#10b981'}; font-weight: bold;">${dep.status}</span>
-        `;
-        container.appendChild(row);
-      });
-    }
-
-    setInterval(() => {
-      const last = departures.pop();
-      if (last) departures.unshift(last);
-      renderDepartures();
-    }, 6000);
-
-    renderDepartures();
-
-    // PNR Search Handler
-    async function handlePNRSearch(e) {
-      e.preventDefault();
-      const pnrVal = document.getElementById('pnr-input').value.trim().toUpperCase();
-      if (!pnrVal) return;
-
-      const modal = document.getElementById('scan-modal');
-      const bar = document.getElementById('progress-bar');
-      const resultsSection = document.getElementById('results-section');
-
-      modal.classList.add('active');
-      bar.style.width = '0%';
-      resultsSection.style.display = 'none';
-
-      let progress = 0;
-      const interval = setInterval(async () => {
-        progress += 20;
-        bar.style.width = progress + '%';
-
-        if (progress >= 100) {
-          clearInterval(interval);
-
-          // Attempt Node.js Backend Fetch
-          try {
-            const resp = await fetch(`${BACKEND_URL}/api/passenger/query-pnr/${pnrVal}`);
-            const apiData = await resp.json();
-            if (apiData && apiData.found) {
-              mockBaggageDB[pnrVal] = apiData.bagData;
-            }
-          } catch (err) {
-            console.log("Using internal RAM simulation engine");
-          }
-
-          setTimeout(() => {
-            modal.classList.remove('active');
-            displayResults(pnrVal);
-          }, 350);
+        const normalized = String(reference || '').trim().toUpperCase();
+        if (normalized !== '6E1234') {
+          results.style.display = 'block';
+          results.innerHTML = `
+            <div class="glass-panel" style="padding:1.5rem;border-color:rgba(250,204,21,.35);">
+              <div style="color:#facc15;font-weight:800;font-size:.75rem;letter-spacing:.08em;">DEMO LOOKUP</div>
+              <h3 style="margin:.45rem 0;color:#fff;font-size:1.25rem;">No recovery record found</h3>
+              <p style="color:#cbd5e1;font-size:.85rem;">Try the available synthetic reference <strong style="color:#38bdf8;">6E1234</strong>.</p>
+            </div>`;
+          results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
         }
-      }, 200);
-    }
 
-    // SVG Bag Render Function
-    function getSvgBagHTML(customImgUrl) {
-      if (customImgUrl) {
-        return `<img src="${customImgUrl}" style="width: 170px; height: 170px; border-radius: 14px; object-fit: cover; border: 2px solid #38bdf8;">`;
-      }
-      return `
-        <div style="width: 170px; height: 170px; background: rgba(30,58,138,0.3); border-radius: 14px; border: 2px solid #38bdf8; display: grid; place-items: center;">
-          <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.5">
-            <rect x="5" y="6" width="14" height="15" rx="3" fill="#1e293b"/>
-            <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" stroke="#a855f7" stroke-width="2"/>
-            <line x1="8" y1="21" x2="8" y2="23" stroke="#f43f5e" stroke-width="2"/>
-            <line x1="16" y1="21" x2="16" y2="23" stroke="#f43f5e" stroke-width="2"/>
-            <line x1="9" y1="10" x2="15" y2="10" stroke="#38bdf8"/>
-            <line x1="9" y1="14" x2="15" y2="14" stroke="#38bdf8"/>
-          </svg>
-        </div>
-      `;
-    }
-
-    // Display Search Results
-    function displayResults(pnrKey) {
-      const resultsSection = document.getElementById('results-section');
-      resultsSection.style.display = 'block';
-      const record = mockBaggageDB[pnrKey];
-
-      if (record) {
-        const bagMediaHTML = getSvgBagHTML(record.isCustomImage ? record.image : null);
-
-        resultsSection.innerHTML = `
-          <div class="glass-panel" style="padding: 1.8rem; border-color: #10b981;">
-            <div style="display:flex; justify-style:space-between; align-items:center; margin-bottom:1.2rem;">
-              <h3 style="color: #34d399; font-size: 1.25rem; display:flex; align-items:center; gap:8px;">
-                <i class="fa-solid fa-circle-check"></i> Baggage Located & PNR Verified: ${pnrKey}
-              </h3>
-              <span style="background:#022c22; color:#10b981; border:1px solid #10b981; padding:4px 12px; border-radius:20px; font-size:0.75rem; font-weight:bold;">
-                <i class="fa-solid fa-clock-rotate-left"></i> RAM Key Active (60s TTL)
-              </span>
-            </div>
-
-            <div style="background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 1.5rem; display: flex; gap: 1.8rem; flex-wrap: wrap; align-items:center;">
-              <div style="text-align:center;">
-                ${bagMediaHTML}
-                <div style="font-size:0.7rem; color:#94a3b8; margin-top:6px;"><i class="fa-solid fa-qrcode"></i> AI Barcode & Feature Match</div>
+        results.style.display = 'block';
+        results.innerHTML = `
+          <div class="glass-panel" style="overflow:hidden;padding:0;border-color:rgba(56,189,248,.3);">
+            <div style="padding:1.35rem 1.5rem;background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(168,85,247,.1));border-bottom:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;flex-wrap:wrap;">
+              <div>
+                <div style="display:inline-flex;align-items:center;gap:6px;color:#34d399;background:rgba(16,185,129,.14);padding:4px 10px;border-radius:999px;font-size:.68rem;font-weight:800;letter-spacing:.04em;">
+                  <i class="fa-solid fa-circle-check"></i> READY FOR PICKUP
+                </div>
+                <div style="color:#94a3b8;font-size:.72rem;margin-top:8px;">Ref 6E1234</div>
+                <h3 style="color:#fff;font-size:1.55rem;margin:5px 0 4px;">We found your recovery record.</h3>
+                <p style="color:#cbd5e1;font-size:.82rem;line-height:1.5;max-width:680px;">Your bag has been verified by the ground team and is ready for collection. Bring a government ID and your boarding pass to Desk B.</p>
               </div>
-
-              <div style="flex: 1; min-width: 260px;">
-                <div style="font-size: 1.35rem; font-weight: 800; color: #fff; display:flex; align-items:center; gap:10px;">
-                  <i class="fa-solid fa-user-check" style="color:#38bdf8;"></i> Passenger: ${record.passengerName}
-                </div>
-                <div style="color: #38bdf8; font-size: 0.95rem; margin: 0.4rem 0; font-weight: 700;">
-                  <i class="fa-solid fa-plane"></i> ${record.route}
-                </div>
-
-                <div style="font-size: 0.82rem; color: #cbd5e1; display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 0.8rem 0; background:rgba(255,255,255,0.03); padding:10px; border-radius:10px;">
-                  <div><b>Flight Manifest:</b> ${record.flight}</div>
-                  <div><b>Bag Tag Barcode:</b> <span style="color:#facc15; font-family:monospace;">${record.tag}</span></div>
-                  <div><b>Item Attributes:</b> ${record.item}</div>
-                  <div><b>Pickup Point:</b> ${record.location}</div>
-                </div>
-
-                <div style="display:flex; gap:12px; margin-top:1rem; align-items:center;">
-                  <button class="btn-gradient" onclick="claimItem('${pnrKey}')">
-                    <i class="fa-solid fa-hand-holding-hand"></i> Claim Item & Wipe RAM
-                  </button>
-                  <span style="font-size:0.7rem; color:#10b981;"><i class="fa-solid fa-shield-halved"></i> Data permanently auto-purged on claim</span>
-                </div>
+              <div style="min-width:110px;text-align:center;padding:12px 14px;border-radius:14px;background:rgba(168,85,247,.18);border:1px solid rgba(168,85,247,.4);">
+                <strong style="display:block;color:#fff;font-size:1.9rem;line-height:1;">94%</strong>
+                <span style="color:#c084fc;font-size:.65rem;font-weight:700;">demo match signal</span>
               </div>
             </div>
-          </div>
-        `;
-      } else {
-        resultsSection.innerHTML = `
-          <div class="glass-panel" style="padding: 1.8rem; text-align: center; border-color: #f43f5e;">
-            <h3 style="color: #f43f5e; margin: 0; font-size: 1.15rem; display:flex; align-items:center; justify-content:center; gap:8px;">
-              <i class="fa-solid fa-circle-xmark"></i> No Unclaimed Baggage Found for PNR: ${pnrKey}
-            </h3>
-            <p style="color: #cbd5e1; font-size: 0.85rem; margin-top: 0.6rem;">
-              Please double check your PNR or click <b>"Search by AI Image"</b> to upload a photo of your bag.
-            </p>
-          </div>
-        `;
+            <div style="display:grid;grid-template-columns:minmax(210px,.8fr) minmax(0,1.5fr);gap:2rem;padding:1.5rem;">
+              <div>
+                <div style="color:#38bdf8;font-size:.7rem;font-weight:800;letter-spacing:.1em;margin-bottom:1rem;">CASE DETAILS</div>
+                <div style="color:#94a3b8;font-size:.72rem;margin-bottom:4px;">Flight &amp; route</div>
+                <div style="color:#f8fafc;font-size:.86rem;font-weight:700;margin-bottom:1.1rem;">6E 2134 · Mumbai → Delhi</div>
+                <div style="color:#94a3b8;font-size:.72rem;margin-bottom:4px;">Bag description</div>
+                <div style="color:#f8fafc;font-size:.86rem;font-weight:700;line-height:1.45;margin-bottom:1.1rem;">Navy blue hard-shell suitcase with a red luggage strap</div>
+                <div style="color:#94a3b8;font-size:.72rem;margin-bottom:4px;">Collection point</div>
+                <div style="color:#f8fafc;font-size:.86rem;font-weight:700;">Terminal 2 · Lost &amp; Found Desk B</div>
+              </div>
+              <div>
+                <div style="color:#38bdf8;font-size:.7rem;font-weight:800;letter-spacing:.1em;margin-bottom:1rem;">RECOVERY TIMELINE</div>
+                ${[
+                  ['Report received', 'Passenger report linked to flight 6E 2134.', '09:42'],
+                  ['Possible match found', 'Ground staff identified a matching bag at Belt 4.', '10:08'],
+                  ['Staff verification', 'Bag tag and visual description were confirmed.', '10:21'],
+                  ['Ready for pickup', 'Collection is available at Terminal 2, Desk B.', 'Now']
+                ].map(item => `
+                  <div style="display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:0 0 14px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,.1);">
+                    <span style="width:28px;height:28px;border-radius:50%;background:#34d399;color:#042f2e;display:grid;place-items:center;"><i class="fa-solid fa-check" style="font-size:.72rem;"></i></span>
+                    <div><strong style="display:block;color:#f8fafc;font-size:.86rem;margin:3px 0;">${item[0]}</strong><span style="color:#94a3b8;font-size:.72rem;line-height:1.4;">${item[1]}</span></div>
+                    <span style="color:#94a3b8;font-size:.7rem;margin-top:5px;">${item[2]}</span>
+                  </div>`).join('')}
+              </div>
+            </div>
+            <div style="padding:10px 1.5rem;background:rgba(16,185,129,.1);color:#34d399;text-align:center;font-size:.7rem;">Synthetic demo record only. Live deployments require authorized airport and airline data connections.</div>
+          </div>`;
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
 
-      resultsSection.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Claim Action
-    async function claimItem(pnrKey) {
-      alert(`✅ Baggage Verification Pass Issued for PNR: ${pnrKey}!\n\n🔒 ZERO-DATA RETENTION ACTION:\nAll passenger travel vectors & luggage records have been wiped from Upstash Redis RAM memory (0 Bytes remaining).`);
-      
-      try {
-        await fetch(`${BACKEND_URL}/api/passenger/claim-item/${pnrKey}`, { method: 'DELETE' });
-      } catch (e) {}
-
-      delete mockBaggageDB[pnrKey];
-      document.getElementById('results-section').style.display = 'none';
-      document.getElementById('count-reunited').innerText = '7,246';
-    }
-
-    // Preview Uploaded Bag Image
-    function previewStaffPhoto(input) {
-      if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          customUploadedPhoto = e.target.result;
-          document.getElementById('staff-preview-img').src = customUploadedPhoto;
-          document.getElementById('staff-photo-preview-box').style.display = 'block';
-
-          // Replace Hero Image
-          document.getElementById('featured-bag-box').innerHTML = `<img src="${customUploadedPhoto}" style="width:100%; height:150px; object-fit:cover; border-radius:10px;">`;
-        }
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
-
-    // Staff Upload Handler
-    async function handleStaffUpload(e) {
-      e.preventDefault();
-      const pnr = document.getElementById('staff-pnr').value.trim().toUpperCase();
-      const location = document.getElementById('staff-location').value.trim();
-      const item = document.getElementById('staff-item').value.trim();
-
-      mockBaggageDB[pnr] = {
-        passengerName: "Nehal Sharma (Flight Manifest Auto-Linked)",
-        route: "Delhi (DEL) ✈ Mumbai (BOM)",
-        flight: "AI 102 • Air India",
-        tag: pnr,
-        item: item,
-        status: "BAG INDEXED BY GROUND STAFF",
-        location: location,
-        image: customUploadedPhoto,
-        isCustomImage: !!customUploadedPhoto,
-        uploadedAt: "Just now"
+      window.runSampleSearch = function () {
+        const input = document.getElementById('pnr-input');
+        if (input) input.value = '6E1234';
+        renderRecoveryResult('6E1234');
       };
 
-      // Push to backend Node server if live
-      try {
-        await fetch(`${BACKEND_URL}/api/staff/upload-bag`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ pnr, location, description: item, imageBase64: customUploadedPhoto || "" })
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('pnr-form');
+        if (form) form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          renderRecoveryResult(document.getElementById('pnr-input')?.value);
         });
-      } catch (err) {}
-
-      document.getElementById('featured-bag-label').innerText = item + " (Staff Uploaded)";
-
-      closeStaffModal();
-      alert(`✅ Staff Upload Complete!\nYour bag photo and barcode features have been indexed into RAM for PNR/Tag: ${pnr}`);
-    }
-
-    // Chatbot Logic
-    function toggleChatbot() {
-      document.getElementById('chatbot-window').classList.toggle('active');
-    }
-
-    function handleChatKeyPress(e) {
-      if (e.key === 'Enter') sendChatMessage();
-    }
-
-    function sendChatMessage() {
-      const input = document.getElementById('chat-input');
-      const text = input.value.trim();
-      if (!text) return;
-
-      const body = document.getElementById('chat-body');
-      
-      const userDiv = document.createElement('div');
-      userDiv.className = 'chat-msg chat-user';
-      userDiv.innerText = text;
-      body.appendChild(userDiv);
-
-      input.value = '';
-      body.scrollTop = body.scrollHeight;
-
-      setTimeout(() => {
-        const botDiv = document.createElement('div');
-        botDiv.className = 'chat-msg chat-bot';
-
-        if (text.toUpperCase().includes('PNR') || text.match(/[A-Z0-9]{6}/i)) {
-          botDiv.innerText = "I detected a PNR query! Entering " + text + " in search automatically...";
-          document.getElementById('pnr-input').value = text;
-          handlePNRSearch(new Event('submit'));
-        } else if (text.toLowerCase().includes('hello') || text.toLowerCase().includes('hi')) {
-          botDiv.innerText = "Hello! Please enter your flight PNR or ask about airport lost & found procedures.";
-        } else {
-          botDiv.innerText = "You can track misplaced luggage by entering your 6-digit PNR in the main search bar or clicking 'Search by AI Image'. All data auto-purges post-verification!";
-        }
-
-        body.appendChild(botDiv);
-        body.scrollTop = body.scrollHeight;
-      }, 700);
-    }
-
-    // Modals
-    function openAIModal() { document.getElementById('ai-modal').classList.add('active'); }
-    function closeAIModal() { document.getElementById('ai-modal').classList.remove('active'); }
-    function openStaffModal() { document.getElementById('staff-modal').classList.add('active'); }
-    function closeStaffModal() { document.getElementById('staff-modal').classList.remove('active'); }
-
-    function openZDRInspector() {
-      const modal = document.getElementById('zdr-modal');
-      const list = document.getElementById('ram-keys-list');
-      modal.classList.add('active');
-
-      const keys = Object.keys(mockBaggageDB);
-      if (keys.length === 0) {
-        list.innerHTML = `<div style="text-align:center; color:#10b981; font-size:0.85rem; padding:1rem;"><i class="fa-solid fa-circle-check"></i> RAM Buffer Empty (0 Bytes Active). All data purged.</div>`;
-      } else {
-        list.innerHTML = keys.map(k => `
-          <div style="background:#022c22; border:1px solid #10b981; color:#34d399; font-family:monospace; padding:8px 12px; border-radius:8px; font-size:0.78rem; display:flex; justify-style:space-between; align-items:center; margin-bottom:8px;">
-            <span><i class="fa-solid fa-key" style="color:#a855f7;"></i> redis://node-01/pnr_${k}</span>
-            <span style="color:#10b981; font-weight:bold;">1.2 KB (TTL: 48s)</span>
-          </div>
-        `).join('');
-      }
-    }
-
-    function closeZDRInspector() { document.getElementById('zdr-modal').classList.remove('active'); }
-
-    function manualPurgeRAM() {
-      mockBaggageDB = {};
-      openZDRInspector();
-      alert("⚡ Manual Purge Triggered: All in-memory RAM keys wiped to 0 Bytes!");
-    }
-
-    function handleAIImageUpload() {
-      closeAIModal();
-      document.getElementById('pnr-input').value = '6E1234';
-      handlePNRSearch(new Event('submit'));
-    }
-
-    function scrollToHowItWorks() { document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' }); }
-    function scrollToSearch() { document.getElementById('pnr-input').focus(); }
+      });
+    })();
   </script>
 
 </body>
