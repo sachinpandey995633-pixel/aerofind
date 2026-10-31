@@ -625,6 +625,17 @@
 
     renderDepartures();
 
+    async function fetchWithTimeout(url, options = {}, timeoutMs = 2500) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+      try {
+        return await fetch(url, { ...options, signal: controller.signal });
+      } finally {
+        clearTimeout(timeoutId);
+      }
+    }
+
     // PNR Search Handler
     async function handlePNRSearch(e) {
       e.preventDefault();
@@ -640,30 +651,36 @@
       resultsSection.style.display = 'none';
 
       let progress = 0;
-      const interval = setInterval(async () => {
+      const interval = setInterval(() => {
         progress += 20;
         bar.style.width = progress + '%';
 
         if (progress >= 100) {
           clearInterval(interval);
-
-          // Attempt Node.js Backend Fetch
-          try {
-            const resp = await fetch(`${BACKEND_URL}/api/passenger/query-pnr/${pnrVal}`);
-            const apiData = await resp.json();
-            if (apiData && apiData.found) {
-              mockBaggageDB[pnrVal] = apiData.bagData;
-            }
-          } catch (err) {
-            console.log("Using internal RAM simulation engine");
-          }
-
-          setTimeout(() => {
-            modal.classList.remove('active');
-            displayResults(pnrVal);
-          }, 350);
+          completePNRSearch(pnrVal, modal);
         }
       }, 200);
+    }
+
+    async function completePNRSearch(pnrVal, modal) {
+      // The local RAM simulation must remain usable when the optional backend is
+      // unavailable or slow.
+      try {
+        const resp = await fetchWithTimeout(`${BACKEND_URL}/api/passenger/query-pnr/${pnrVal}`);
+        if (resp.ok) {
+          const apiData = await resp.json();
+          if (apiData && apiData.found && apiData.bagData) {
+            mockBaggageDB[pnrVal] = apiData.bagData;
+          }
+        }
+      } catch (err) {
+        console.log("Using internal RAM simulation engine");
+      } finally {
+        setTimeout(() => {
+          modal.classList.remove('active');
+          displayResults(pnrVal);
+        }, 350);
+      }
     }
 
     // SVG Bag Render Function
@@ -757,12 +774,14 @@
       alert(`✅ Baggage Verification Pass Issued for PNR: ${pnrKey}!\n\n🔒 ZERO-DATA RETENTION ACTION:\nAll passenger travel vectors & luggage records have been wiped from Upstash Redis RAM memory (0 Bytes remaining).`);
       
       try {
-        await fetch(`${BACKEND_URL}/api/passenger/claim-item/${pnrKey}`, { method: 'DELETE' });
-      } catch (e) {}
-
-      delete mockBaggageDB[pnrKey];
-      document.getElementById('results-section').style.display = 'none';
-      document.getElementById('count-reunited').innerText = '7,246';
+        await fetchWithTimeout(`${BACKEND_URL}/api/passenger/claim-item/${pnrKey}`, { method: 'DELETE' });
+      } catch (e) {
+        console.log("Backend purge unavailable; completed local RAM purge");
+      } finally {
+        delete mockBaggageDB[pnrKey];
+        document.getElementById('results-section').style.display = 'none';
+        document.getElementById('count-reunited').innerText = '7,246';
+      }
     }
 
     // Preview Uploaded Bag Image
