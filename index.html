@@ -825,38 +825,53 @@
       if (e.key === 'Enter') sendChatMessage();
     }
 
-    function sendChatMessage() {
+    async function sendChatMessage() {
       const input = document.getElementById('chat-input');
       const text = input.value.trim();
       if (!text) return;
 
       const body = document.getElementById('chat-body');
-      
+      const sendButton = document.querySelector('#chatbot-window button[onclick="sendChatMessage()"]');
+
       const userDiv = document.createElement('div');
       userDiv.className = 'chat-msg chat-user';
       userDiv.innerText = text;
       body.appendChild(userDiv);
 
       input.value = '';
+      input.disabled = true;
+      if (sendButton) sendButton.disabled = true;
       body.scrollTop = body.scrollHeight;
 
-      setTimeout(() => {
-        const botDiv = document.createElement('div');
-        botDiv.className = 'chat-msg chat-bot';
+      const botDiv = document.createElement('div');
+      botDiv.className = 'chat-msg chat-bot';
+      botDiv.innerText = 'Thinking...';
+      body.appendChild(botDiv);
+      body.scrollTop = body.scrollHeight;
 
-        if (text.toUpperCase().includes('PNR') || text.match(/[A-Z0-9]{6}/i)) {
-          botDiv.innerText = "I detected a PNR query! Entering " + text + " in search automatically...";
-          document.getElementById('pnr-input').value = text;
+      try {
+        const response = await fetch('/api/gemini', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Gemini request failed');
+
+        botDiv.innerText = data.reply;
+        if (data.pnr) {
+          document.getElementById('pnr-input').value = data.pnr;
           handlePNRSearch(new Event('submit'));
-        } else if (text.toLowerCase().includes('hello') || text.toLowerCase().includes('hi')) {
-          botDiv.innerText = "Hello! Please enter your flight PNR or ask about airport lost & found procedures.";
-        } else {
-          botDiv.innerText = "You can track misplaced luggage by entering your 6-digit PNR in the main search bar or clicking 'Search by AI Image'. All data auto-purges post-verification!";
         }
-
-        body.appendChild(botDiv);
+      } catch (error) {
+        console.error('Gemini chat error:', error);
+        botDiv.innerText = 'AI assistant is temporarily unavailable. You can still search directly using your PNR above.';
+      } finally {
+        input.disabled = false;
+        if (sendButton) sendButton.disabled = false;
+        input.focus();
         body.scrollTop = body.scrollHeight;
-      }, 700);
+      }
     }
 
     // Modals
