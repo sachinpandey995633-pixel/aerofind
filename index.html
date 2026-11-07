@@ -572,8 +572,10 @@
 
   <!-- JAVASCRIPT LOGIC & BACKEND CONNECTOR -->
   <script>
-    // OPTIONAL NODE.JS BACKEND CONNECTOR (Render/Vercel URL)
-    const BACKEND_URL = "https://aerofind-backend.onrender.com";
+    // Optional backend connector. Keep this empty when using the local RAM demo.
+    // A slow/unavailable external backend must never block the PNR search UI.
+    const BACKEND_URL = "";
+    let activeSearchToken = 0;
 
     // Mock Baggage Database in RAM with Real Passenger Match
     let mockBaggageDB = {
@@ -630,6 +632,7 @@
       e.preventDefault();
       const pnrVal = document.getElementById('pnr-input').value.trim().toUpperCase();
       if (!pnrVal) return;
+      const searchToken = ++activeSearchToken;
 
       const modal = document.getElementById('scan-modal');
       const bar = document.getElementById('progress-bar');
@@ -639,31 +642,32 @@
       bar.style.width = '0%';
       resultsSection.style.display = 'none';
 
-      let progress = 0;
-      const interval = setInterval(async () => {
-        progress += 20;
-        bar.style.width = progress + '%';
-
-        if (progress >= 100) {
-          clearInterval(interval);
-
-          // Attempt Node.js Backend Fetch
-          try {
-            const resp = await fetch(`${BACKEND_URL}/api/passenger/query-pnr/${pnrVal}`);
-            const apiData = await resp.json();
-            if (apiData && apiData.found) {
-              mockBaggageDB[pnrVal] = apiData.bagData;
-            }
-          } catch (err) {
-            console.log("Using internal RAM simulation engine");
+      const animation = new Promise(resolve => {
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 25;
+          bar.style.width = progress + '%';
+          if (progress >= 100) {
+            clearInterval(interval);
+            resolve();
           }
+        }, 80);
+      });
 
-          setTimeout(() => {
-            modal.classList.remove('active');
-            displayResults(pnrVal);
-          }, 350);
-        }
-      }, 200);
+      const backendLookup = BACKEND_URL
+        ? fetch(`${BACKEND_URL}/api/passenger/query-pnr/${encodeURIComponent(pnrVal)}`, {
+            signal: AbortSignal.timeout(1200)
+          })
+            .then(resp => resp.ok ? resp.json() : null)
+            .catch(() => null)
+        : Promise.resolve(null);
+
+      const [, apiData] = await Promise.all([animation, backendLookup]);
+      if (searchToken !== activeSearchToken) return;
+      if (apiData?.found) mockBaggageDB[pnrVal] = apiData.bagData;
+
+      modal.classList.remove('active');
+      displayResults(pnrVal);
     }
 
     // SVG Bag Render Function
@@ -756,9 +760,16 @@
     async function claimItem(pnrKey) {
       alert(`✅ Baggage Verification Pass Issued for PNR: ${pnrKey}!\n\n🔒 ZERO-DATA RETENTION ACTION:\nAll passenger travel vectors & luggage records have been wiped from Upstash Redis RAM memory (0 Bytes remaining).`);
       
-      try {
-        await fetch(`${BACKEND_URL}/api/passenger/claim-item/${pnrKey}`, { method: 'DELETE' });
-      } catch (e) {}
+      if (BACKEND_URL) {
+        try {
+          await fetch(`${BACKEND_URL}/api/passenger/claim-item/${encodeURIComponent(pnrKey)}`, {
+            method: 'DELETE',
+            signal: AbortSignal.timeout(1200)
+          });
+        } catch (e) {
+          console.warn('Remote claim sync unavailable; clearing local RAM record.');
+        }
+      }
 
       delete mockBaggageDB[pnrKey];
       document.getElementById('results-section').style.display = 'none';
@@ -801,14 +812,18 @@
         uploadedAt: "Just now"
       };
 
-      // Push to backend Node server if live
-      try {
-        await fetch(`${BACKEND_URL}/api/staff/upload-bag`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ pnr, location, description: item, imageBase64: customUploadedPhoto || "" })
-        });
-      } catch (err) {}
+      if (BACKEND_URL) {
+        try {
+          await fetch(`${BACKEND_URL}/api/staff/upload-bag`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pnr, location, description: item, imageBase64: customUploadedPhoto || "" }),
+            signal: AbortSignal.timeout(1500)
+          });
+        } catch (err) {
+          console.warn('Remote staff sync unavailable; keeping the record in local RAM.');
+        }
+      }
 
       document.getElementById('featured-bag-label').innerText = item + " (Staff Uploaded)";
 
